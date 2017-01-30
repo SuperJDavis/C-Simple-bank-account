@@ -1,0 +1,116 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace JonDavisAssignment0
+{
+    class Account
+    {
+        double[] transactions = new double[50];
+        int count = 0;
+        double startingBalance = 100;
+
+        public void deposit()
+        {
+            double d;
+            String s = Console.ReadLine();
+            d = double.Parse(s);
+            transactions[count] = d;
+            count++;
+            return;
+        }
+
+
+        public void withdraw()
+        {
+            double d;
+            String s = Console.ReadLine();
+            d = double.Parse(s);
+            transactions[count] = (d*-1);
+            count++;
+            return;
+        }
+
+        public void interest()
+        {
+            double sum = transactions.Sum();
+            sum = sum + startingBalance;
+            double d = (sum * .05);
+            transactions[count] = (d);
+            count++;
+            return;
+        }
+
+        public double getBal()
+        {
+            double sum = transactions.Sum();
+            sum = sum + startingBalance;
+            return sum;
+        }
+
+        public void show()
+        {
+            int a = 0;
+            while (a < count)
+            {
+                var item = transactions[a];
+                Console.Write(item.ToString());
+                Console.WriteLine(", ");
+                a++;
+            }
+
+        }
+
+
+        static void Main(string[] args)
+        {
+            Account account = new Account();
+            Console.WriteLine("Would you like to continue? Type y then enter to continue.");
+            String cont = Console.ReadLine();
+            while (cont== "y" || cont == "Y")
+            {
+                Console.WriteLine("What would you like to do today?");
+                Console.WriteLine("(D)eposit, (W)ithdraw, (C)alculateInterest, (S)howBalance., (Q)uit");
+                String selection = Console.ReadLine();
+                if (selection== "D" || selection== "d")
+                {
+                    Console.WriteLine("How much would you like to deposit today?");
+                    account.deposit();
+                    cont = Console.ReadLine();
+                }
+                if (selection == "W" || selection == "w")
+                {
+                    Console.WriteLine("How much would you like to withdraw today?");
+                    account.withdraw();
+                    Console.WriteLine("Would you like to continue?");
+                    cont = Console.ReadLine();
+                }
+                if (selection == "C" || selection == "c")
+                {
+                    account.interest();
+                    Console.WriteLine("Interest added");
+                    Console.WriteLine("Would you like to continue?");
+                    cont = Console.ReadLine();
+                }
+
+                if (selection == "S" || selection == "s")
+                {
+                    account.getBal();
+                    Console.WriteLine("your balance is " + account.getBal());
+                    Console.WriteLine("Would you like to continue?");
+                    cont = Console.ReadLine();
+                }
+                if (selection == "Q" || selection == "q")
+                {
+                    account.show();
+                    cont = "n";
+                }
+
+
+            }
+            Console.ReadKey();
+        }
+    }
+}
